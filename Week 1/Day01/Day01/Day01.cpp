@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include "Calculator.h"
+#include "Robots.h"
 
 int AddOne(int localNumber)
 {
@@ -29,7 +30,18 @@ int main()
         2) if the method returns data, it is usually best to store that data in a variable on the line where you call the method.
 
     */
+    Robots robbie;
+    robbie.MowingBot();
 
+    std::string room = "Bathroom";
+    robbie.CleaningBot(room);//this value is COPIED to the variable in the method
+
+    std::string recipeToCook = "Burger";
+    std::vector<std::string> ingredients{"Cheddar Cheese","Brioche","red onions","fried egg", "double patty", "spinach", "all condiments"};
+    Robots gordon;
+    std::string myMeal = gordon.ChefBot(recipeToCook, ingredients);
+    std::cout << "MMMM...this is a nice " << myMeal << "! Thank you Gordon.\n";
+    robbie.CleaningBot("Kitchen");
     /*
         ╔══════════════════════════╗
         ║Parameters: Pass by Value.║
