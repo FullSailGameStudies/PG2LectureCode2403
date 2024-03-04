@@ -6,6 +6,7 @@
 #include <string>
 #include "Calculator.h"
 #include "Robots.h"
+#include <iomanip> //access to setw,left,right,etc
 
 int AddOne(int localNumber)
 {
@@ -129,10 +130,13 @@ int main()
     std::cout << "--- for loop:\n";
     for (size_t i = 0; i < names.size(); i++)
     {
-        std::cout << names[i] << "\n";
+        std::string name = names[i];//copies the string
+        std::cout << name << "\n";
     }
     std::cout << "\n\n";
 
+
+    auto iterator = names.begin();
 
     std::cout << "--- for loop with iterators:\n";
     for (auto i = names.begin(); i != names.end(); ++i)
@@ -142,6 +146,7 @@ int main()
     std::cout << "\n\n";
 
     std::cout << "--- Range-based for loop:\n";
+    //creates a reference variable called name
     for (auto& name : names)
         std::cout << name << std::endl;
     std::cout << "\n\n";
@@ -152,7 +157,20 @@ int main()
             loop over the grades vector and print out each grade
 
     */
-
+    //c way of generating random #'s
+    //rand() will generate a pseudo-random # between 0 - 32767
+    //srand is used to seed the generator
+    srand(time(NULL));
+    std::vector<float> grades;
+    for (size_t i = 0; i < 10; i++)
+    {
+        grades.push_back(rand() % 10001 / 100.0F);
+    }
+    std::cout << "\n\n PG2 Grades for 2403\n";
+    for (auto& grade : grades)
+    {
+        std::cout << std::setw(8) << std::right << grade << "\n";
+    }
 
 
 
