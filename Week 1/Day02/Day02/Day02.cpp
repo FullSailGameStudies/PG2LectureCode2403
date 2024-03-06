@@ -36,8 +36,39 @@ void printInfo(const std::vector<int>& scores)
     std::cout << "size: " << scores.size() << "\tcapacity: " << scores.capacity() << "\n";
 }
 
+
+void PassByValue(int numbie)//the value gets COPIED from whoever calls it
+{
+    numbie += 1000;
+    std::cout << numbie << "\n";
+}
+void PassByReference(int& numbie)//a new name is given to the variable in main
+{
+    numbie += 1000;
+    std::cout << numbie << "\n";
+}
+void GetGrades(std::vector<float>& course)
+{
+    for (size_t i = 0; i < 10; i++)
+    {
+        course.push_back(rand() % 10001 / 100.0F);
+    }
+}
 int main()
 {
+    int number = 5;
+    PassByValue(number);
+    std::cout << number << "\n";
+
+    PassByReference(number);
+    std::cout << number << "\n\n";
+
+    int& numbie = number;//both variables point to the same memory location
+
+    int* pNumber = &numbie;
+
+    std::cout << &numbie << "\n" << &number << "\n";
+
     /*
         ╔══════════════════════════════╗
         ║Parameters: Pass by Reference.║
@@ -62,6 +93,15 @@ int main()
 
     */
     std::vector<float> grades;
+    for (size_t i = 0; i < grades.size(); i++)
+    {
+        float grade = grades[i];
+        std::cout << grade << "\n";
+    }
+    for (auto& grade : grades)
+    {
+        std::cout << grade << "\n";
+    }
 
 
 

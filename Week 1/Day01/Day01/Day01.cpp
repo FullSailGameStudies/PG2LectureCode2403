@@ -172,7 +172,7 @@ int main()
         std::cout << std::setw(8) << std::right << grade << "\n";
     }
 
-
+    grades.erase(grades.begin() + 4);//will erase the 5th item
 
 
     /*
