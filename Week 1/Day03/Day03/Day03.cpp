@@ -4,15 +4,37 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "FullSailCourse.h"
 
 std::string postFix(std::string fileName, int postFixNumber = 1) //postFixNumber is optional
 {
     return fileName + "_" + std::to_string(postFixNumber);
 }
 
+//void PrintMyPG2Grade(float myGrade = 99.9F)
+//{
+//    std::cout << "My PG2 Grade for 2403 is...\n";
+//    std::cout << myGrade;
+//}
 int main()
 {
-
+    FullSailCourse pg2;
+    pg2.PrintMyPG2Grade();
+    pg2.PrintMyPG2Grade(59.5F);
+    //C way to compare strings
+    //_stricmp
+    std::string s1 = "Batman", s2 = "Aquaman";
+    int comparisonResult = _stricmp(s2.c_str(), s1.c_str());
+    //s1.compare(s2);//case sensitive
+    // < 0 if s1 < s2
+    // == 0 if s1 == s2
+    // > 0 if s1 > s2
+    if (comparisonResult < 0)
+        std::cout << s2 << " is LESS THAN " << s1 << "\n";
+    else if(comparisonResult == 0)
+        std::cout << s2 << " is EQUAL TO " << s1 << "\n";
+    else //if (comparisonResult > 0)
+        std::cout << s2 << " is GREATER THAN " << s1 << "\n";
     /*
         ╔═══════════════════════════════╗
         ║Parameters: optional parameters║
@@ -67,6 +89,12 @@ int main()
 
     */
     std::vector<int> scores = { 1,2,3,4,5 };
+
+    std::vector<int> highScores = scores; //making a copy of the vector
+    std::vector<int>& highScoresReference = scores; //making a reference variable. NOT a copy
+
+
+
 
     //1) copy each element manually
     std::vector<int> scores2;

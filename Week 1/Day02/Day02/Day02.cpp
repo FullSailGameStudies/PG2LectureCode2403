@@ -73,8 +73,13 @@ void print(const std::vector<int>& scores)
 
 void printInfo(const std::vector<int>& scores)
 {
+	//size: says how many items are in the vector
+	//capacity: says how big the internal array is
 	std::cout << "size: " << scores.size() << "\tcapacity: " << scores.capacity() << "\n";
 }
+
+//index range of a vector: 0 to size()-1
+//the capacity is always > or = size.
 
 
 void PassByValue(int numbie)//the value gets COPIED from whoever calls it
@@ -171,9 +176,45 @@ int main()
 		This is the way you pass by reference and prevent the method from changing the variable.
 	*/
 	std::vector<int> highScores;
-	for (int i = 0; i < 10; ++i)
-		highScores.push_back(rand());
+	highScores.reserve(20);
+	printInfo(highScores);
+	for (int i = 0; i < 20; ++i)
+	{
+		highScores.push_back(rand() % 5000);
+		printInfo(highScores);
+	}
 	float avg = average(highScores);
+
+	auto otherScores = highScores;
+	print(highScores);
+	//remove all scores < 2500
+	for (auto iter = highScores.begin();iter != highScores.end(); )
+	{
+		if ((*iter) < 2500)
+		{
+			iter = highScores.erase(iter);
+		}
+		else
+			iter++;
+	}
+	print(highScores);
+
+
+	print(otherScores);
+	for (size_t i = 0; i < otherScores.size(); i++)
+	{
+		if (otherScores[i] < 2500)
+		{
+			otherScores.erase(otherScores.begin() + i);
+			i--;
+		}
+	}
+	for (int i = otherScores.size() - 1; i >= 0; i--)
+	{
+		if (otherScores[i] < 2500)
+			otherScores.erase(otherScores.begin() + i);
+	}
+	print(otherScores);
 
 
 
