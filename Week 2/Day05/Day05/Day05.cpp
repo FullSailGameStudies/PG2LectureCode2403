@@ -39,6 +39,15 @@ int LinearSearch(std::vector<int> numbers, int searchTerm)
     return foundIndex;
 }
 
+void PrintGrades(const std::map<std::string, double>& course)
+{
+    std::cout << "\n\nGrades for PG2: 2403\n";
+    for (auto& [name,grade] : course)
+    {
+        std::cout << std::setw(15) << std::left << name << "  " << std::setw(7) << std::right << grade << "\n";
+    }
+}
+
 int main()
 {
     /*
@@ -150,6 +159,37 @@ int main()
     }
 
 
+    //float price = menu["Cheesy Fries"];//??
+    //std::cout << "Cheesy Fries costs " << price << "\n";
+    //DO NOT LOOP to find a key
+    std::string itemToFind = "Cheesy Fries";
+    auto foundItem = menu.find(itemToFind);
+    //foundItem is an iterator that points to a key-value pair
+    //foundItem->first on foundItem is the key
+    //foundItem->second is the value
+
+    if (foundItem == menu.end()) //NOT FOUND
+    {
+        std::cout << itemToFind << " is not on the menu. May I suggest that you go to McDonald's\n";
+    }
+    else //the item was found
+    {
+        std::cout << itemToFind << " costs " << foundItem->second << "\n";
+    }
+
+    //menu[itemToFind] = 9.99F;
+    //menu[itemToFind] = 7.99F;//update the value
+
+    itemToFind = "Steak";
+    foundItem = menu.find(itemToFind);
+    if (foundItem != menu.end())
+    {
+        float oldPrice = menu[itemToFind];
+        foundItem->second += 4;
+        float newPrice = menu[itemToFind];
+        std::cout << itemToFind << " used to costs " << oldPrice << ".";
+        std::cout << " Now it costs " << newPrice << "!! Thanks Putin.\n\n\n";
+    }
 
     /*
         ╔═══════════════════╗
@@ -230,7 +270,8 @@ int main()
     /*
         Map CHALLENGE:
 
-            1) Create a map that stores names (string) and grades. Call the variable grades.
+            1) Create a map that stores names (string) and grades. 
+                Call the variable grades.
             2) Add students and grades to your map.
             3) Loop over your grades map and print each student name and grade.
 
@@ -240,5 +281,32 @@ int main()
 
             5) Pick any student and curve the grade (add 5) that is stored in the grades map
     */
+
+    std::vector<std::string> students{
+    "Maurice", "Ridchy", "Eric (J)", "Vincent", "Dominick", "Charles", "Samuel", "Rory", "Angel",
+    "Eli'-sha", "Katherine", "Erick", "Aidan", "Linette", "Je'Kysaun", "William", "Dajai", "Reece",
+    "Corbin", "Kyle", "Luc", "Thomas", "Cecil", "David", "Hector", "Joel", "Mackenzie",
+    "Michael", "Nylah", "Tobey", "Xavier"
+    };
+    srand(time(NULL));
+    std::map<std::string, double> pg2;
+    for (auto& name : students)
+    {
+        pg2[name] = rand() % 10001 / 100.0F;
+    }
+    PrintGrades(pg2);
+
+    std::string nameToFind = "Eli'-sha";
+    auto foundStudent = pg2.find(nameToFind);
+    if (foundStudent != pg2.end())
+    {
+        double grade = foundStudent->second;
+        foundStudent->second = std::min(100.0, grade + 5);
+        std::cout << foundStudent->first << " had a grade of " << grade << ".\n";
+        std::cout << "Now the grade is " << foundStudent->second << ".\n";
+        PrintGrades(pg2);
+    }
+    else
+        std::cout << nameToFind << " was not found.\n";
 
 }
