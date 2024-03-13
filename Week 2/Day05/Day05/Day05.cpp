@@ -5,12 +5,39 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <iomanip>
 
 enum class Weapon
 {
     Sword, Axe, Spear, Mace
 };
 
+//GOAL: trying to find the index of the item in the vector
+
+/// <summary>
+/// Search a vector for a number
+/// </summary>
+/// <param name="numbers">the vector to search</param>
+/// <param name="searchTerm">the number to find</param>
+/// <returns>-1 if not found. the index if found.</returns>
+int LinearSearch(std::vector<int> numbers, int searchTerm)
+{
+    //what to return if the searchTerm is NOT found?
+    //-1 b/c that's an invalid index
+    //therefore, the calling code will know if it's not found
+
+    int foundIndex = -1;
+    for (int i = 0; i < numbers.size(); i++)
+    {
+        //was a match found?
+        if (searchTerm == numbers[i])
+        {
+            foundIndex = i;
+            break;
+        }
+    }
+    return foundIndex;
+}
 
 int main()
 {
@@ -34,8 +61,15 @@ int main()
                 4) if reach the end of the vector, return -1 which means not found
 
     */
+    //# of items: 7  N = 7. worst-case we have to look at all 7 items.
+    //O(N) - Linear
     std::vector<int> numbers = { 0,1,2,3,4,5,6 };
     int searchNumber = 15;
+    int index = LinearSearch(numbers, searchNumber);
+    if (index == -1) //not found
+    {
+        std::cout << searchNumber << " was not found.\n";
+    }
 
 
 
@@ -75,16 +109,45 @@ int main()
     dorasBackpack[Weapon::Axe] = 7;//simply overwrites the value if the key is already in the map
 
 
-    /*
-        CHALLENGE 2:
 
-            Create a map that stores names (string) and grades. Call the variable grades.
-            Add students and grades to your map.
+    std::map<std::string, float> menu;
 
-    */
+    //to add a key-value pair to a map...
+    //1) the insert method
+    std::pair<std::string, float> keyValuePair = std::make_pair("Steak", 19.99F);
+    std::cout << keyValuePair.first << " " << keyValuePair.second << "\n";
 
+    //gives us an iterator into the map
+    //AND a bool that tells us if it was inserted
+    auto result = menu.insert(keyValuePair);//will not overwrite if the item is already in the map
+    if (result.second)
+    {
+        //the item was inserted
+    }
 
+    //2) use the [key] = value
+    menu["Baked Potato"] = 4.99F;
+    menu["Baked Potato"] = 5.99F;//will overwrite the value
 
+    menu["Cookies-n-Cream Ice Cream"] = 7.99F;
+
+    for (auto& pair : menu)
+    {
+
+    }
+    std::cout << "\n\nPG2 Cafe\n";
+    //const prevents it from changing
+    //& - reference prevents a copy
+    for (const auto& [menuItem,menuPrice] : menu)
+    {
+        std::cout << std::setw(7) << menuPrice << " " << menuItem << "\n";
+    }
+
+    std::cout << "\n\nPG2 Cafe\n";
+    for (auto iter = menu.begin(); iter != menu.end(); iter++)
+    {
+        std::cout << std::setw(7) << iter->second << " " << iter->first << "\n";
+    }
 
 
 
@@ -121,13 +184,6 @@ int main()
     }
 
 
-    /*
-        CHALLENGE 4:
-
-            Loop over your grades map and print each student name and grade.
-
-    */
-
 
 
     /*
@@ -155,16 +211,6 @@ int main()
 
 
 
-    /*
-        CHALLENGE 5:
-
-            look for a specific student in the map.
-            If the student is found, print out the student's grade
-            else print out a message that the student was not found
-
-    */
-
-
 
 
     /*
@@ -181,11 +227,18 @@ int main()
     dorasBackpack[Weapon::Axe] = 1;//updates the count for the axe
 
 
-
     /*
-        CHALLENGE 6:
+        Map CHALLENGE:
 
-            Pick any student and curve the grade (add 5) that is stored in the grades map
+            1) Create a map that stores names (string) and grades. Call the variable grades.
+            2) Add students and grades to your map.
+            3) Loop over your grades map and print each student name and grade.
 
+            4) look for a specific student in the map.
+                If the student is found, print out the student's grade
+                else print out a message that the student was not found
+
+            5) Pick any student and curve the grade (add 5) that is stored in the grades map
     */
+
 }
