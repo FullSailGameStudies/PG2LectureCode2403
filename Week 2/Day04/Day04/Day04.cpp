@@ -47,6 +47,78 @@ void Bats(int i)
     Bats(i+1); //i++ post-increment   ++i pre-increment
 }
 
+/*
+
+            procedure bubbleSort(A : list of sortable items)
+              n := length(A)
+              repeat
+                  swapped := false
+                  for i := 1 to n - 1 inclusive do
+                      if A[i - 1] > A[i] then
+                          swap(A, i - 1, i)
+                          swapped = true
+                      end if
+                  end for
+                  n := n - 1
+              while swapped
+            end procedure
+
+            indention in pseudocode is IMPORTANT!!
+            end XXX  think }
+            := think assignment
+*/
+void bubbleSort(std::vector<int>& A)//procedure bubbleSort(A : list of sortable items)
+{
+    int n = A.size(); //n := length(A)
+    bool swapped = false;
+    do //repeat
+    {
+        swapped = false; //swapped: = false
+        //for i := 1 to n - 1 inclusive do
+        for (int i = 1; i <= n-1; i++)
+        {
+            //if A[i - 1] > A[i] then
+            if (A[i - 1] > A[i])//then
+            {
+                //TODO: swap(A, i - 1, i)
+                //int temp = A[i - 1];
+                //A[i - 1] = A[i];
+                //A[i] = temp;
+                std::swap(A[i - 1], A[i]);
+                swapped = true;//swapped = true
+            }//end if
+        }//end for
+        n = n - 1;//n := n - 1
+    } while (swapped); //while swapped
+}//end procedure
+
+void bubbleSort(std::vector<std::string>& A)//procedure bubbleSort(A : list of sortable items)
+{
+    int n = A.size(); //n := length(A)
+    bool swapped = false;
+    do //repeat
+    {
+        swapped = false; //swapped: = false
+        //for i := 1 to n - 1 inclusive do
+        for (int i = 1; i <= n - 1; i++)
+        {
+            //if A[i - 1] > A[i] then
+            int compareResult = _stricmp(A[i - 1].c_str(), A[i].c_str());
+            //if (A[i - 1] > A[i])//then  for strings, > is case sensitive
+            if(compareResult > 0)
+            {
+                //TODO: swap(A, i - 1, i)
+                //int temp = A[i - 1];
+                //A[i - 1] = A[i];
+                //A[i] = temp;
+                std::swap(A[i - 1], A[i]);
+                swapped = true;//swapped = true
+            }//end if
+        }//end for
+        n = n - 1;//n := n - 1
+    } while (swapped); //while swapped
+}//end procedure
+
 int main()
 {
     int i = 0;
@@ -103,17 +175,17 @@ int main()
         make sure the project is using C++17 or greater.
 
     */
-    std::cout << "\n\n---SWAPPING ITEMS---\n";
-    std::vector<int> nums = { 1,2,3,4,5 };
+    std::cout << "\n\n---SORTING ITEMS---\n";
+    std::vector<int> nums = { 13,0,5,1,7};
     for (auto i : nums)
         std::cout << i << " ";
     std::cout << " (original)\n";
 
-    //write code to swap 2 items in the vector
+    bubbleSort(nums);
 
-    std::cout << " (after swapping)\n";
     for (auto i : nums)
         std::cout << i << " ";
+    std::cout << "\n(after sorting)\n";
 
     /*
         ╔═════════════════╗
@@ -173,8 +245,13 @@ int main()
     */
     std::vector<std::string> names = { "Wonder Woman", "Superman", "Batman", "Flash", "Aquaman" };
     //call your BubbleSort on the names vector.
+    std::cout << "\n\nUNSORTED Heroes\n";
+    for (auto& name : names)
+        std::cout << name << "\n";
 
+    bubbleSort(names);
 
+    std::cout << "\n\nSORTED Heroes\n";
     //print the sorted vector.
     for (auto& name : names)
         std::cout << name << "\n";
