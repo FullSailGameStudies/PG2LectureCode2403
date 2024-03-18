@@ -2,6 +2,7 @@
 //
 
 #include <iostream>
+#include "Player.h"
 
 
 /*              CLASSESS
@@ -44,6 +45,20 @@
 
 int main()
 {
+    Player steve("Steev", 10,10,0); //steve is an INSTANCE of the Player class
+    Player alex("Alex", 20,20,0); //this is calling a constructor
+
+    //alex.SetHealth(20);
+    //alex.FoodLevel(20);
+    //alex.ArmorLevel(0);
+
+    //steve.SetHealth(10);
+    //steve.FoodLevel(10);
+    //steve.ArmorLevel(0);
+
+    float health = alex.GetHealth();
+    steve.PlayerHUD();// &steve);   &steve give the pointer to steve
+    alex.PlayerHUD();
     /*
         Lecture code: add a Car class
     
