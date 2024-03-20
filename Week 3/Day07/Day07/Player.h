@@ -56,7 +56,7 @@ public://EVERYONE can see it
 	}
 
 	void PlayerHUD();
-
+	static void GameHUD();
 
 
 private: //ONLY this class can see it
@@ -65,6 +65,8 @@ private: //ONLY this class can see it
 	float health_;
 	float foodLevel_, armorLevel_;
 	std::string gamerTag_;
+
+	static int numberOfPlayers_; //shared piece of data. ALL instances have the same variable
 
 protected://THIS class and all my descendent classes (children, grand-children, etc) can see it
 

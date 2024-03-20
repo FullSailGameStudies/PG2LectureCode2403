@@ -45,7 +45,11 @@
 
 int main()
 {
+    Player::GameHUD();//call static methods on the class name, NOT the instance
+
     Player steve("Steev", 10,10,0); //steve is an INSTANCE of the Player class
+    steve.PlayerHUD();// &steve);   &steve give the pointer to steve
+
     Player alex("Alex", 20,20,0); //this is calling a constructor
 
     //alex.SetHealth(20);
@@ -57,7 +61,6 @@ int main()
     //steve.ArmorLevel(0);
 
     float health = alex.GetHealth();
-    steve.PlayerHUD();// &steve);   &steve give the pointer to steve
     alex.PlayerHUD();
     /*
         Lecture code: add a Car class
