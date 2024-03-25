@@ -36,7 +36,7 @@ int main()
     //  *** - check if the file is open before continuing
     std::string path = "C:\\temp\\2403\\";//this whole path needs to exist before writing the file
     std::string fileName = "player.csv";
-    std::string fullPath = path + fileName;
+    std::string fullPath = fileName;// path + fileName;
 
     char delimiter = '#';
     {
@@ -45,11 +45,12 @@ int main()
         {
             //2. WRITE to the file
             //  << - insertion operator. inserting information into the stream
-            outputFile << 
-                heroBrine.GamerTag() << delimiter <<
-                heroBrine.Armor() << delimiter <<
-                heroBrine.Food() << delimiter <<
-                heroBrine.Health();
+            heroBrine.SerializeCSV(outputFile, delimiter);
+            //outputFile << 
+            //    heroBrine.GamerTag() << delimiter <<
+            //    heroBrine.Armor() << delimiter <<
+            //    heroBrine.Food() << delimiter <<
+            //    heroBrine.Health();
 
             //3. CLOSE the file
             outputFile.close();
@@ -58,6 +59,9 @@ int main()
             std::cout << fullPath << " could not be opened.\n";
         }
     }
+
+    std::cout << "PLAYER STATS\n";
+    heroBrine.SerializeCSV(std::cout, '\n');
 
     /*
 
@@ -95,6 +99,46 @@ int main()
 
         Lecture code: using the filePath variable, open an input file, use getline to read a line, print the line
     */
+
+    //1. OPEN the file. use ifstream for reading
+    //  - check if it's open 
+    std::ifstream input(fullPath);
+    if (input.is_open())
+    {
+        //2. READ the file
+        std::string line;
+        std::getline(input, line);//read the 1 line into the line variable
+
+        //PARSE the string for the player values
+        //getline works on streams.
+        //convert the string to a stream.
+        std::stringstream lineStream(line);
+        std::string tag;
+        std::getline(lineStream, tag, delimiter); 
+        
+        std::string data;
+        std::getline(lineStream, data, delimiter);
+        float armor = std::stof(data);
+
+        std::getline(lineStream, data, delimiter);
+        float food = std::stof(data);
+
+        std::getline(lineStream, data, delimiter);
+        float health = std::stof(data);
+
+        std::cout << "\n\nReady Player 2\n";
+        Player player2(tag, armor, food, health);
+        player2.SerializeCSV(std::cout, '\n');
+
+
+        //std::cout << "\n" << line << "\n";
+
+        //3. CLOSE the file
+        input.close();
+    }
+    else {
+        std::cout << fullPath << " could not be opened.\n";
+    }
 
 
     /*

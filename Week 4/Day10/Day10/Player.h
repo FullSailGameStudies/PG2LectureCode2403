@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#include <fstream>
+
 class Player
 {
 public:
@@ -14,6 +16,8 @@ public:
 	float Armor() const { return armor_; }
 	float Food() const { return food_; }
 	float Health() const { return health_; }
+
+	void SerializeCSV(std::ostream& outFile, char delimiter);//where and what delimiter)
 
 private:
 	std::string gamerTag_;
