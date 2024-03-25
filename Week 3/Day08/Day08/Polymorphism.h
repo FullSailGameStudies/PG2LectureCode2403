@@ -52,10 +52,9 @@ private:
 	int mNum;
 public:
 	base(int num) : mNum(num)
-	{
-
-	}
-	void print()
+	{}
+	//step 1. mark the base method as "virtual"
+	virtual void print()
 	{
 		std::cout << "Hello base " << mNum << "\n";
 	}
@@ -68,4 +67,17 @@ private:
 public:
 	derived(std::string str, int num) : base(num), mStr(str)
 	{ }
+	//step 2. override the method. create another method with the same "signature"
+	//step 3. (optional) add the override keyword
+	void print() override
+	{
+		//DECIDE: 
+		//  do I want the base method code to run or not?
+		//
+		std::cout << "I'm a derived: " << mStr << "\t";
+		base::print();//call the base method to "EXTEND" the base
+		//std::cout << "Hello base " << mNum << "\n";
+
+		//if not, then simply don't call the base method (FULL override)
+	}
 };

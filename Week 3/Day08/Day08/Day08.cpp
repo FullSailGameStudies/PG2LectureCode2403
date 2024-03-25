@@ -8,12 +8,15 @@
 #include "Car.h"
 #include "FlyingCar.h"
 #include "Pistol.h"
+#include "Knife.h"
+#include <vector>
 
 
 int main()
 {
-	FlyingCar jetsons(2025, "Tesla", "X-Plane", 5000, 500);
+	FlyingCar jetsons(2025, "Tesla", "X-Plane", 5000, 500);//created on the stack
 
+	jetsons.refuel(50);
 
 	/*
         ╔═══════════════╗
@@ -58,9 +61,33 @@ int main()
 	
 	*/
 	Pistol pewpew(400, 200, 10, 15);
+	Pistol pistol(100, 10, 5, 10);
+
+	Pistol newPistol = pewpew + pistol;
+
+	Knife bowie(3, 10);
+
+	std::vector<std::unique_ptr<Weapon>> dorasBackpack;
+	//created a pistol and UPCASTED it to a Weapon
+	dorasBackpack.push_back(std::make_unique<Pistol>(400, 200, 10, 15));
+	dorasBackpack.push_back(std::make_unique<Knife>(3, 10));
+
+	std::unique_ptr<Pistol> banger = std::make_unique<Pistol>(400, 200, 10, 15);
+	std::unique_ptr<Weapon> wpn2 = std::move(banger);
+	//banger->showMe();
+	for (auto& weapon : dorasBackpack)
+	{
+		weapon->showMe();
+	}
+
+	//we LOSE the knife parts
+	Weapon wpn = bowie;//cast?? copying the weapon parts of bowie to the new variable
 
 
-
+	int num = 5;
+	long bigNum = num;//casting? implicit. handled automatically by compiler
+	num = bigNum;
+	float fNum = (float)num;//casting? explicit
 
 
 
@@ -202,7 +229,8 @@ int main()
 	base base1 = der1; //calls the assignment operator of base therefore you lose all the derived parts. base1 is JUST a base object.
 	der1.print();
 	std::cout << "\n";
-	base1.print();
+
+	//base1.print();
 
 
 
@@ -218,5 +246,35 @@ int main()
 		Loop over the vector and call showMe on each weapon.
 
 	*/
+
+	int  elisha = 7;
+	int* maurice = &elisha;
+	int& Harry = elisha;
+	std::cout << "\n\nPOINTERS! FUN?!\n";
+	std::cout << elisha << "\n" << maurice << "\n" << Harry << "\n";
+	Harry++;
+	//maurice++;//increments the pointer!! not the int
+	std::cout << elisha << "\n" << maurice << "\n" << Harry << "\n";
+
+	std::cout << "Derefence the pointer with *\n";
+	std::cout << *maurice << "\n";
+
+
+	//live on the heap instead of the stack
+	// use the "new" operator
+	FlyingCar* jetsons2 = new FlyingCar(2025, "Tesla", "X-Plane", 10000, 150);
+	jetsons2->refuel();
+	//MUST clean up dynamic memory (anything that uses "new")
+	delete jetsons2;
+	jetsons2 = nullptr;
+	if(jetsons2 != nullptr)
+		jetsons2->refuel();
+
+	{
+		std::unique_ptr<FlyingCar> pFlyingCar =
+			std::make_unique<FlyingCar>(2025, "Tesla", "X-Plane", 10000, 150);//the data needed for the ctor call
+
+		pFlyingCar->refuel();
+	}//the unique ptr goes out of scope and deletes the memory
 }
 

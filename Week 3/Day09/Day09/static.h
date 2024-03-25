@@ -5,7 +5,7 @@
 
 void demo()
 {
-	static int count = 0; //created once
+	static int count = 0; //create this variable once
 	std::cout << count << " ";
 	count++;
 }

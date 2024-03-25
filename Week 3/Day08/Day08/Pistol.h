@@ -16,6 +16,12 @@ public:
 
 	}
 
+	Pistol operator+(const Pistol& otherPistol)
+	{
+		Pistol newPistol(range(), damage(), rounds_ + otherPistol.rounds_, magCapacity_);
+		return newPistol;
+	}
+
 private:
 	int rounds_, magCapacity_;
 };

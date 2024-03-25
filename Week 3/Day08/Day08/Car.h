@@ -19,6 +19,10 @@ public:
 	{
 		mFuelLevel = mMaxFuelLevel;
 	}
+	void refuel(int fuelToAdd)
+	{
+
+	}
 
 	//getter (accessor)
 	int modelYear() const
