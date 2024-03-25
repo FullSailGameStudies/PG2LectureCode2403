@@ -112,22 +112,24 @@ int main()
         //PARSE the string for the player values
         //getline works on streams.
         //convert the string to a stream.
-        std::stringstream lineStream(line);
-        std::string tag;
-        std::getline(lineStream, tag, delimiter); 
-        
-        std::string data;
-        std::getline(lineStream, data, delimiter);
-        float armor = std::stof(data);
+        Player player2(line, delimiter);
 
-        std::getline(lineStream, data, delimiter);
-        float food = std::stof(data);
+        //std::stringstream lineStream(line);
+        //std::string tag;
+        //std::getline(lineStream, tag, delimiter); 
+        //
+        //std::string data;
+        //std::getline(lineStream, data, delimiter);
+        //float armor = std::stof(data);
 
-        std::getline(lineStream, data, delimiter);
-        float health = std::stof(data);
+        //std::getline(lineStream, data, delimiter);
+        //float food = std::stof(data);
+
+        //std::getline(lineStream, data, delimiter);
+        //float health = std::stof(data);
 
         std::cout << "\n\nReady Player 2\n";
-        Player player2(tag, armor, food, health);
+        //Player player2(tag, armor, food, health);
         player2.SerializeCSV(std::cout, '\n');
 
 
@@ -170,6 +172,10 @@ int main()
         There are multiple delimiters.
         Separate on the first delimiter (collectionSeparator) to get the csv data for each object.
         Then, separate the object csv data on objectSeparator to get the details of the object.
+        Print the data like so:
+        Hero: (name)
+        Secret: (secret)
+        Age: (age)
 
         EX: hero#hero#hero   each hero is separated by a #
             name^secret^age  the details of each hero is separated by a ^
@@ -178,4 +184,35 @@ int main()
     std::string multi = "Batman^Bruce Wayne^35#Superman^Clark Kent^25#Wonder Woman^Diana Prince^25#Aquaman^Arthur Curry^12";
     char collectionSeparator = '#';
     char objectSeparator = '^';
+
+    //read each hero chunk
+    //store it in a vector of string
+    //process the vector...
+    //   loop over the vector
+    //   take the string and get each part
+    //   print the details
+
+    std::stringstream multiStream(multi);
+    std::vector<std::string> heroes;
+    std::string heroChunk;
+    while (std::getline(multiStream, heroChunk, collectionSeparator))
+    {
+        heroes.push_back(heroChunk);
+    }
+    for (auto& chunk : heroes)
+    {
+        std::string data;
+        std::stringstream chunkStream(chunk);
+
+        std::cout << "\nHERO\n";
+        std::getline(chunkStream, data, objectSeparator);
+        std::cout << "Name: " << data << "\n";
+
+        std::getline(chunkStream, data, objectSeparator);
+        std::cout << "Secret: " << data << "\n";
+
+        std::getline(chunkStream, data, objectSeparator);
+        int age = std::stoi(data);
+        std::cout << "Age: " << age << "\n";
+    }
 }
