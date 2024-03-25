@@ -6,6 +6,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include "Player.h"
 
 
 
@@ -25,6 +26,38 @@
 int main()
 {
     std::cout << "Hello PG2!\n";
+
+    Player heroBrine("HeroBrine", 20, 20, 20);
+
+
+    //1. OPEN the file
+    //      - set the path and filename
+    //      - open it in the correct mode (output mode - use the ofstream class)
+    //  *** - check if the file is open before continuing
+    std::string path = "C:\\temp\\2403\\";//this whole path needs to exist before writing the file
+    std::string fileName = "player.csv";
+    std::string fullPath = path + fileName;
+
+    char delimiter = '#';
+    {
+        std::ofstream outputFile(fullPath);
+        if (outputFile.is_open())
+        {
+            //2. WRITE to the file
+            //  << - insertion operator. inserting information into the stream
+            outputFile << 
+                heroBrine.GamerTag() << delimiter <<
+                heroBrine.Armor() << delimiter <<
+                heroBrine.Food() << delimiter <<
+                heroBrine.Health();
+
+            //3. CLOSE the file
+            outputFile.close();
+        }
+        else {
+            std::cout << fullPath << " could not be opened.\n";
+        }
+    }
 
     /*
 
